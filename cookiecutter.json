@@ -1,0 +1,20 @@
+{
+  "project_name": "My LLM Wiki",
+  "repo_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
+  "wiki_title": "{{ cookiecutter.project_name }}",
+  "maintainer_name": "Your Name",
+  "license": [
+    "none",
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause"
+  ],
+  "include_slides": [
+    "y",
+    "n"
+  ],
+  "include_python_helpers": [
+    "y",
+    "n"
+  ]
+}

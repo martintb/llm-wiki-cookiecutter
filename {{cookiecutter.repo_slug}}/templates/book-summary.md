@@ -1,17 +1,19 @@
 ---
-title: "<Book Title>"
+title: "__TITLE__"
 type: source
 source_type: book
 status: active
-created: 2026-05-09
-updated: 2026-05-09
+created: "__DATE__"
+updated: "__DATE__"
+source_refs: []
+raw_source: ""
+authors: []
+published:
 tags: []
+related: []
 ---
 
-# <Book Title>
-
-> [!note]
-> Replace all angle-bracket placeholders before saving a real book summary. Use a book slug derived from the actual title.
+# __TITLE__
 
 ## One-paragraph summary
 
@@ -21,8 +23,8 @@ tags: []
 
 | Chapter | Source page | Main contribution | Key concepts |
 |---|---|---|---|
-| 1 | [[<book-slug>-ch01-<short-title>]] |  |  |
-| 2 | [[<book-slug>-ch02-<short-title>]] |  |  |
+| 1 | [[book-ch01-short-title]] |  |  |
+| 2 | [[book-ch02-short-title]] |  |  |
 
 ## Major arguments
 
@@ -30,7 +32,7 @@ tags: []
 
 ## Important tensions or contradictions
 
-## Relevance to my work
+## Relevance
 
 ## Pages updated from this book
 
