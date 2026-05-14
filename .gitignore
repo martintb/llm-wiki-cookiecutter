@@ -1,0 +1,15 @@
+raw/*
+
+# Local environment
+.venv/
+__pycache__/
+
+# macOS / editor noise
+.DS_Store
+*.swp
+*.swo
+
+# Obsidian local state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/

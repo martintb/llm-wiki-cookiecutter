@@ -1,0 +1,1 @@
+Please see AGENTS.md. All information is in AGENTS.md and you must read this file before doing anything in this repo. 
