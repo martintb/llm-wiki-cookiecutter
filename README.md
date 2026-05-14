@@ -29,17 +29,40 @@ Each rendered repo is an LLM-maintained wiki with these operating layers:
 
 ## Quick Start
 
-Install `cookiecutter` and render the template:
+Install `cookiecutter`:
 
 ```bash
 python3 -m pip install cookiecutter
+```
+
+Render directly from a GitHub repository:
+
+```bash
+cookiecutter gh:<owner>/<repo>
+```
+
+Example:
+
+```bash
+cookiecutter gh:tbm/llm-wiki-cookiecutter
+```
+
+Render directly from a specific branch or tag on GitHub:
+
+```bash
+cookiecutter https://github.com/<owner>/<repo>.git --checkout <branch-or-tag>
+```
+
+If you already have the template cloned locally, render from the local path:
+
+```bash
 cookiecutter /path/to/llm-wiki-cookiecutter
 ```
 
-Or render into the current directory:
+To generate into the current directory instead of the default output location:
 
 ```bash
-cookiecutter /path/to/llm-wiki-cookiecutter --output-dir .
+cookiecutter gh:<owner>/<repo> --output-dir .
 ```
 
 The template will prompt for:
