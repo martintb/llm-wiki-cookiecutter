@@ -77,9 +77,11 @@ The template will prompt for:
 
 ## Generated Wiki Preview
 
-If you want to review the produced wiki layout and operating model before rendering anything, read [docs/generated-wiki-guide.md](/Users/tbm/software/llm-wiki-cookiecutter/docs/generated-wiki-guide.md).
+If you want to review the produced wiki layout and operating model before rendering anything, read [Generated Wiki Guide](docs/generated-wiki-guide.md).
 
 That document mirrors the README shipped inside each generated wiki repo.
+
+For a step-by-step example of day-to-day usage, read [Workflow Example](docs/workflow-example.md).
 
 ## Harness Compatibility
 

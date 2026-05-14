@@ -33,6 +33,8 @@ This repo is designed to work with major repository-aware harnesses:
 4. Use `wiki-search` before answering from scratch.
 5. Use `wiki-audit` periodically to catch structural or provenance issues.
 
+For a full step-by-step example, read [docs/workflow-example.md](docs/workflow-example.md).
+
 ## Harness Files And Skills
 
 The repo ships with three harness entrypoints:

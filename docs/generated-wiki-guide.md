@@ -2,6 +2,8 @@
 
 This document previews the README that ships inside each rendered wiki repo.
 
+For a concrete end-to-end usage example, also read [Workflow Example](workflow-example.md).
+
 ## Purpose
 
 The generated repository is a portable, markdown-first knowledge base for evidence-backed notes, source summaries, synthesis pages, decisions, and open questions.
