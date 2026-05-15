@@ -9,10 +9,17 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SOURCE_ROOT = REPO_ROOT / "skills"
+TEMPLATE_ROOT = REPO_ROOT / "{{cookiecutter.repo_slug}}"
 TARGET_ROOTS = [
     REPO_ROOT / ".agents" / "skills",
     REPO_ROOT / ".claude" / "skills",
     REPO_ROOT / ".gemini" / "skills",
+]
+TEMPLATE_TARGET_ROOTS = [
+    TEMPLATE_ROOT / "skills",
+    TEMPLATE_ROOT / ".agents" / "skills",
+    TEMPLATE_ROOT / ".claude" / "skills",
+    TEMPLATE_ROOT / ".gemini" / "skills",
 ]
 IGNORED_NAMES = {"__pycache__", ".DS_Store"}
 
@@ -38,14 +45,19 @@ def remove_children(path: Path) -> None:
             child.unlink()
 
 
+def sync_targets(source_root: Path, target_roots: list[Path]) -> None:
+    for target_root in target_roots:
+        target_root.mkdir(parents=True, exist_ok=True)
+        remove_children(target_root)
+        for skill_dir in skill_directories(source_root):
+            shutil.copytree(skill_dir, target_root / skill_dir.name)
+
+
 def sync() -> None:
     if not SOURCE_ROOT.exists():
         raise SystemExit(f"missing canonical skill directory: {SOURCE_ROOT}")
-    for target_root in TARGET_ROOTS:
-        target_root.mkdir(parents=True, exist_ok=True)
-        remove_children(target_root)
-        for skill_dir in skill_directories(SOURCE_ROOT):
-            shutil.copytree(skill_dir, target_root / skill_dir.name)
+    sync_targets(SOURCE_ROOT, TARGET_ROOTS)
+    sync_targets(SOURCE_ROOT, TEMPLATE_TARGET_ROOTS)
 
 
 def compare_trees(left: Path, right: Path) -> bool:
@@ -67,7 +79,7 @@ def check() -> int:
     if not SOURCE_ROOT.exists():
         print(f"missing canonical skill directory: {SOURCE_ROOT}", file=sys.stderr)
         return 1
-    for target_root in TARGET_ROOTS:
+    for target_root in TARGET_ROOTS + TEMPLATE_TARGET_ROOTS:
         if not target_root.exists():
             print(f"missing mirror directory: {target_root}", file=sys.stderr)
             return 1
@@ -85,7 +97,9 @@ def main() -> int:
     if args.check:
         return check()
     sync()
-    print("synced skills into .agents/skills, .claude/skills, and .gemini/skills")
+    print(
+        "synced canonical skills into repo mirrors and the generated project template"
+    )
     return 0
 
 

@@ -10,6 +10,7 @@ from cookiecutter.main import cookiecutter
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+CANONICAL_SKILLS_DIR = REPO_ROOT / "skills"
 
 
 class CookiecutterRenderTests(unittest.TestCase):
@@ -63,7 +64,15 @@ class CookiecutterRenderTests(unittest.TestCase):
         self.assertTrue((project_dir / ".agents" / "skills").exists())
         self.assertTrue((project_dir / ".claude" / "skills").exists())
         self.assertTrue((project_dir / ".gemini" / "skills").exists())
+        self.assertTrue((project_dir / "skills" / "obsidian-markdown" / "SKILL.md").exists())
+        self.assertTrue((project_dir / "skills" / "obsidian-cli" / "SKILL.md").exists())
+        self.assertTrue((project_dir / "skills" / "obsidian-bases" / "SKILL.md").exists())
+        self.assertTrue((project_dir / "skills" / "json-canvas" / "SKILL.md").exists())
+        self.assertTrue((project_dir / "skills" / "defuddle" / "SKILL.md").exists())
         self.assertTrue((project_dir / ".agents" / "skills" / "pdf" / "SKILL.md").exists())
+        self.assertTrue(
+            self.compare_trees(CANONICAL_SKILLS_DIR, project_dir / "skills")
+        )
         self.assertTrue(
             self.compare_trees(project_dir / "skills", project_dir / ".agents" / "skills")
         )
