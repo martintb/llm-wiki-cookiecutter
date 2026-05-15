@@ -35,6 +35,8 @@ It also opens cleanly as an Obsidian vault.
 4. Use `wiki-search` before answering from scratch.
 5. Use `wiki-audit` periodically to catch structural or provenance issues.
 
+For long books, keep the original at `raw/books/<book-title>/full_book.pdf`, use the local `pdf` skill to split it into `raw/books/<book-title>/chapters/ch01-<chapter-title>.pdf` style files, and ingest those chapter PDFs as separate logical units.
+
 For a full step-by-step example, read [docs/workflow-example.md](docs/workflow-example.md).
 
 For Obsidian setup and bundled companion skills, read [docs/obsidian.md](docs/obsidian.md).

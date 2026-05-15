@@ -54,6 +54,7 @@ Use it when the task involves:
 
 - extracting or OCRing a source PDF
 - splitting, merging, or rotating PDF pages
+- breaking a long book into chapter PDFs under `raw/books/<book-title>/chapters/`
 - filling forms
 - producing a PDF artifact
 
@@ -63,6 +64,14 @@ Recommended flow for source material:
 2. Use `pdf` if extraction, OCR, or transformation is required.
 3. Use `wiki-ingest` to create or update the source summary in `wiki/sources/`.
 4. Use `wiki-integrate` only after the source summary exists.
+
+For book-sized PDFs, prefer:
+
+1. `raw/books/<book-title>/full_book.pdf`
+2. `raw/books/<book-title>/chapters/manifest.json`
+3. `raw/books/<book-title>/chapters/ch01-<chapter-title>.pdf`
+
+The canonical PDF skill now includes a bundled splitter script and a reference guide for using `pypdf`, `pdf2image`, and `pytesseract` when the table of contents or chapter separators need OCR.
 
 ## Official Anthropic PDF Skill
 

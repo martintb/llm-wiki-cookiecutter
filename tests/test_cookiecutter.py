@@ -58,9 +58,12 @@ class CookiecutterRenderTests(unittest.TestCase):
         self.assertTrue((project_dir / "CLAUDE.md").exists())
         self.assertTrue((project_dir / "GEMINI.md").exists())
         self.assertTrue((project_dir / "docs" / "obsidian.md").exists())
+        self.assertTrue((project_dir / "skills" / "pdf" / "SKILL.md").exists())
+        self.assertTrue((project_dir / "skills" / "pdf" / "scripts" / "split_book.py").exists())
         self.assertTrue((project_dir / ".agents" / "skills").exists())
         self.assertTrue((project_dir / ".claude" / "skills").exists())
         self.assertTrue((project_dir / ".gemini" / "skills").exists())
+        self.assertTrue((project_dir / ".agents" / "skills" / "pdf" / "SKILL.md").exists())
         self.assertTrue(
             self.compare_trees(project_dir / "skills", project_dir / ".agents" / "skills")
         )

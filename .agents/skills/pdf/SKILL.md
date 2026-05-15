@@ -1,6 +1,6 @@
 ---
 name: pdf
-description: Use this skill whenever the task involves a .pdf file or PDF-specific work such as extraction, OCR, page manipulation, form filling, or generating a PDF from wiki material. Prefer Python tooling and keep the PDF step distinct from wiki ingestion and synthesis.
+description: Use this skill whenever the task involves a .pdf file or PDF-specific work such as extraction, OCR, page manipulation, form filling, generating a PDF from wiki material, or breaking a large book/report PDF into chapter files under raw/books/. Prefer Python tooling and keep the PDF step distinct from wiki ingestion and synthesis.
 ---
 
 # PDF Skill
@@ -13,6 +13,7 @@ Typical triggers:
 - extract text or tables
 - OCR a scanned document
 - split, merge, rotate, or reorder pages
+- split a large book into chapter or section PDFs
 - fill a form
 - create a PDF artifact from markdown or other structured content
 
@@ -40,6 +41,18 @@ Prefer small, dependable tools with clear responsibilities:
 
 Choose the lightest tool that can do the job well. Do not introduce a heavier stack unless the task justifies it.
 
+## Python Dependencies
+
+If the repo uses Python package metadata, the `pdf` extra should cover the default Python path:
+
+- `pypdf` for splitting, merging, metadata, and quick text checks
+- `pdfplumber` for layout-aware extraction and table-heavy pages
+- `pdf2image` plus `Pillow` for rasterizing scanned pages before OCR
+- `pytesseract` for OCR when a text layer is missing or unusable
+- `reportlab` for PDF generation
+
+`pytesseract` still requires the `tesseract` binary to be installed on the system, and `pdf2image` typically needs Poppler tools such as `pdftoppm`.
+
 ## Workflow
 
 1. Identify whether the PDF is source evidence, an intermediate artifact, or the final deliverable.
@@ -58,6 +71,36 @@ Choose the lightest tool that can do the job well. Do not introduce a heavier st
 6. If the PDF is source material, route the cleaned result into `wiki-ingest`.
 7. If repo contents changed materially, record that work in `wiki/logs/maintenance.md`.
 
+## Large Book Workflow
+
+When a book-sized source arrives as one large PDF, do not usually ingest `full_book.pdf` as one giant source page. Break it into logical units first.
+
+Preferred raw layout:
+
+```text
+raw/books/<book-title>/
+  full_book.pdf
+  chapters/
+    manifest.json
+    ch01-<chapter-title>.pdf
+    ch02-<chapter-title>.pdf
+```
+
+Use this sequence:
+
+1. Preserve the original as `raw/books/<book-title>/full_book.pdf`.
+2. Check whether the PDF already has a usable text layer with `pypdf` or `pdfplumber`.
+3. Derive chapter boundaries from bookmarks, the table of contents, visible divider pages, or a user-provided range list.
+4. If the book is scanned, OCR only the pages you need for boundary detection first, usually the table of contents and chapter opener pages.
+5. Write `raw/books/<book-title>/chapters/manifest.json` with chapter titles and page ranges.
+6. Run `python skills/pdf/scripts/split_book.py --input raw/books/<book-title>/full_book.pdf --manifest raw/books/<book-title>/chapters/manifest.json --output-dir raw/books/<book-title>/chapters`.
+7. Spot-check the first page of each output PDF and confirm page ranges before starting `wiki-ingest`.
+8. Create one `wiki/sources/` page per chapter or section when the book is large enough that a single source page would become unwieldy.
+
+The split outputs should follow the filename contract `ch01-<chapter-title>.pdf`, `ch02-<chapter-title>.pdf`, and so on even when the source uses parts, sections, or appendices.
+
+Read `references/BOOK_SPLITTING.md` when the task is specifically about chapterizing a large book.
+
 ## Extraction Guidance
 
 ### Text-heavy PDFs
@@ -72,6 +115,12 @@ Prefer `pdfplumber`. Return tables in a structured form when possible instead of
 
 Assume OCR output is imperfect. Preserve the original PDF, create a searchable or extracted derivative, and explicitly note where OCR confidence is weak.
 
+For large books, use `pdf2image` and `pytesseract` selectively:
+
+- OCR the table of contents to recover chapter titles and printed page numbers.
+- OCR suspected chapter opener pages when bookmarks are absent.
+- Do not OCR every page just to split the document unless there is no better boundary signal.
+
 ## Output Generation
 
 When generating a new PDF:
@@ -84,9 +133,11 @@ When generating a new PDF:
 ## Wiki-Specific Rules
 
 - Keep source PDFs under `raw/` whenever they are evidence.
+- Keep book chapter derivatives under `raw/books/<book-title>/chapters/`.
 - Do not replace `wiki-ingest` with ad hoc PDF summarization.
 - Do not replace `wiki-integrate` with extraction output.
 - If a user asks about what a PDF says, extraction is only preparation; the reusable knowledge belongs in `wiki/sources/`.
+- For long books, prefer one source page per chapter or logical section over one page for the entire book.
 
 ## Defaults
 
@@ -107,3 +158,4 @@ A good PDF task leaves behind one of these:
 - clean extracted text or tables with caveats when needed
 - a generated PDF plus its editable source
 - a prepared source document ready for `wiki-ingest`
+- for books, `full_book.pdf`, `chapters/manifest.json`, and validated `chapters/ch01-<title>.pdf` style outputs

@@ -50,6 +50,8 @@ It is structured for LLM-assisted maintenance rather than one-off chat answers.
 4. Use `wiki-search` before answering questions from scratch.
 5. Use `wiki-audit` periodically to catch gaps and structural issues.
 
+For large books, preserve `raw/books/<book-title>/full_book.pdf`, use the local `pdf` skill to split it into `raw/books/<book-title>/chapters/ch01-<chapter-title>.pdf` style files, and then ingest those logical units instead of one giant source page.
+
 ## Optional Helper Commands
 
 If the generated repo includes Python helpers:

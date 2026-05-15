@@ -40,6 +40,10 @@ Use the bundled skills this way:
 - `json-canvas` for `.canvas` files
 - `defuddle` when cleaning normal web pages into markdown before ingest
 
+For large books, keep the source as `raw/books/<book-title>/full_book.pdf`, build a `chapters/manifest.json`, and split the book into `raw/books/<book-title>/chapters/ch01-<chapter-title>.pdf` style files before ingesting them.
+
+The local `pdf` skill includes a bundled `skills/pdf/scripts/split_book.py` helper plus reference guidance for `pypdf`, `pdf2image`, and `pytesseract` when the book needs OCR-assisted chapter detection.
+
 ## Official Anthropic PDF Skill
 
 If you want the official Anthropic `pdf` skill specifically, install it separately in your harness environment.

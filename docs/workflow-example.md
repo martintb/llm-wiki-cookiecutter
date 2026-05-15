@@ -116,6 +116,20 @@ Expected result:
 - a maintenance log entry
 - suggested next integration targets
 
+## 3a. Large Book Variant
+
+If the source is a long book instead of a short report, split it first:
+
+```text
+Use the pdf skill to preserve raw/books/example-book/full_book.pdf, identify the chapter boundaries, create raw/books/example-book/chapters/ch01-<chapter-title>.pdf style outputs, and then prepare those chapter PDFs for wiki ingestion.
+```
+
+Expected intermediate result:
+
+- `raw/books/example-book/full_book.pdf`
+- `raw/books/example-book/chapters/manifest.json`
+- one PDF per chapter under `raw/books/example-book/chapters/`
+
 ## 4. Integrate The Source
 
 Once the source summary exists, ask for integration explicitly:

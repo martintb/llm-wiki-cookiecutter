@@ -97,7 +97,7 @@ Large books, reports, and other long-form works should not usually be ingested a
 Preferred flow:
 
 1. Preserve the original under `raw/books/`, `raw/reports/`, or another appropriate raw folder.
-2. Split or extract logical units when useful.
+2. For books, prefer `raw/books/<book-title>/full_book.pdf` plus derived chapter files under `raw/books/<book-title>/chapters/ch01-<chapter-title>.pdf`.
 3. Create one `wiki/sources/` page per logical unit.
 4. Only then create or update higher-level synthesis pages.
 5. Record the work in `wiki/logs/maintenance.md`.
