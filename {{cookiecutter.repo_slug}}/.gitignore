@@ -7,3 +7,4 @@ __pycache__/
 .obsidian/workspace*.json
 build/
 dist/
+raw/*
