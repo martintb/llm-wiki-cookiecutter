@@ -43,7 +43,7 @@ uvx cookiecutter gh:<owner>/<repo>
 Example:
 
 ```bash
-uvx cookiecutter gh:tbm/llm-wiki-cookiecutter
+uvx cookiecutter gh:martintb/llm-wiki-cookiecutter
 ```
 
 Render directly from a specific branch or tag on GitHub:
