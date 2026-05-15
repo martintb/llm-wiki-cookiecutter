@@ -53,10 +53,10 @@ You have a new report called `market-landscape-report.pdf` and you want to prese
 
 ## 1. Create The Wiki
 
-Render the template:
+Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/), then render the template:
 
 ```bash
-cookiecutter gh:<owner>/<repo>
+uvx cookiecutter gh:<owner>/<repo>
 cd my-llm-wiki
 ```
 

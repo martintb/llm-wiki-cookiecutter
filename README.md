@@ -32,40 +32,36 @@ Each rendered repo is an LLM-maintained wiki with these operating layers:
 
 ## Quick Start
 
-Install `cookiecutter`:
-
-```bash
-python3 -m pip install cookiecutter
-```
+Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/) first.
 
 Render directly from a GitHub repository:
 
 ```bash
-cookiecutter gh:<owner>/<repo>
+uvx cookiecutter gh:<owner>/<repo>
 ```
 
 Example:
 
 ```bash
-cookiecutter gh:tbm/llm-wiki-cookiecutter
+uvx cookiecutter gh:tbm/llm-wiki-cookiecutter
 ```
 
 Render directly from a specific branch or tag on GitHub:
 
 ```bash
-cookiecutter https://github.com/<owner>/<repo>.git --checkout <branch-or-tag>
+uvx cookiecutter https://github.com/<owner>/<repo>.git --checkout <branch-or-tag>
 ```
 
 If you already have the template cloned locally, render from the local path:
 
 ```bash
-cookiecutter /path/to/llm-wiki-cookiecutter
+uvx cookiecutter /path/to/llm-wiki-cookiecutter
 ```
 
 To generate into the current directory instead of the default output location:
 
 ```bash
-cookiecutter gh:<owner>/<repo> --output-dir .
+uvx cookiecutter gh:<owner>/<repo> --output-dir .
 ```
 
 The template will prompt for:
@@ -116,10 +112,12 @@ The bundled Obsidian skills are vendored so generated repos work offline and do 
 
 ## Developing The Template
 
-Install the tool needed to render and test the template:
+Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/).
+
+Render the template locally when needed with:
 
 ```bash
-python3 -m pip install cookiecutter
+uvx cookiecutter /path/to/llm-wiki-cookiecutter
 ```
 
 Run the skill mirror sync:
@@ -131,7 +129,7 @@ python3 scripts/sync_skills.py
 Run tests:
 
 ```bash
-python3 -m unittest discover -s tests -v
+uv run python3 -m unittest discover -s tests -v
 ```
 
 The tests render a temporary project from the cookiecutter template and verify:
