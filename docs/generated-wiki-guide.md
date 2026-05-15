@@ -4,6 +4,8 @@ This document previews the README that ships inside each rendered wiki repo.
 
 For a concrete end-to-end usage example, also read [Workflow Example](workflow-example.md).
 
+For Obsidian setup and packaged companion skills, also read [Obsidian Guide](obsidian.md).
+
 ## Purpose
 
 The generated repository is a portable, markdown-first knowledge base for evidence-backed notes, source summaries, synthesis pages, decisions, and open questions.
@@ -16,6 +18,7 @@ It is structured for LLM-assisted maintenance rather than one-off chat answers.
 - `CLAUDE.md` — Claude Code entrypoint
 - `GEMINI.md` — Gemini entrypoint
 - `README.md` — day-to-day wiki instructions
+- `docs/obsidian.md` — Obsidian setup and companion skill guidance
 - `skills/` — canonical local workflow skills
 - `.agents/skills/` — Codex-installed skill mirror
 - `.claude/skills/` — Claude Code-installed skill mirror
@@ -66,3 +69,9 @@ python -m wiki_tools sync-skills
 ```
 
 The hidden directories should be treated as generated installation targets.
+
+The generated repo includes:
+
+- core wiki workflow skills
+- bundled Obsidian companion skills
+- a repo-local `pdf` skill

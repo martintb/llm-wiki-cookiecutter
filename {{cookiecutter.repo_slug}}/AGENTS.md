@@ -35,6 +35,12 @@ Use the wiki skills as follows:
 - `wiki-search` — answer questions from the wiki before falling back to raw sources
 - `wiki-audit` — review wiki health, links, provenance, duplication, and integration gaps
 - `wiki-slides` — create slide artifacts from integrated wiki pages when slide support is enabled
+- `pdf` — handle PDF-specific extraction, OCR, splitting, merging, and output tasks
+- `obsidian-markdown` — edit Obsidian-flavored Markdown correctly when Obsidian-specific syntax matters
+- `obsidian-cli` — interact with a running Obsidian instance when needed
+- `obsidian-bases` — create or edit `.base` files
+- `json-canvas` — create or edit `.canvas` files
+- `defuddle` — clean normal web pages into markdown before ingest
 
 Important distinction:
 
@@ -42,6 +48,7 @@ Important distinction:
 - `wiki-integrate` reads from `wiki/sources/` and writes to the broader wiki
 - `wiki-search` reads the wiki to answer questions
 - `wiki-audit` evaluates the wiki and records findings in `wiki/logs/audits.md`
+- `pdf` prepares or produces PDFs but should not replace `wiki-ingest` or `wiki-integrate`
 
 Do not collapse these workflows into one giant operation unless the user explicitly asks.
 

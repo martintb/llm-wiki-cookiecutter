@@ -8,6 +8,8 @@ This repo is designed to work with major repository-aware harnesses:
 - Claude Code via `CLAUDE.md` and `.claude/skills/`
 - Gemini via `GEMINI.md` and `.gemini/skills/`
 
+It also opens cleanly as an Obsidian vault.
+
 ## Directory Map
 
 - `raw/` — immutable evidence and source material
@@ -35,6 +37,8 @@ This repo is designed to work with major repository-aware harnesses:
 
 For a full step-by-step example, read [docs/workflow-example.md](docs/workflow-example.md).
 
+For Obsidian setup and bundled companion skills, read [docs/obsidian.md](docs/obsidian.md).
+
 ## Harness Files And Skills
 
 The repo ships with three harness entrypoints:
@@ -44,6 +48,8 @@ The repo ships with three harness entrypoints:
 - `GEMINI.md`
 
 The canonical skill source is `skills/`.
+
+That includes the wiki workflow skills, bundled Obsidian companion skills, and the repo-local `pdf` skill.
 
 Installed skill mirrors live at:
 

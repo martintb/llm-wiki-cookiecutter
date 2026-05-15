@@ -71,12 +71,20 @@ raw/reports/market-landscape-report.pdf
 
 If it is not yet categorized, place it in `inbox/` first.
 
+If you use Obsidian, opening the repo as a vault is a good way to verify placement and later inspect backlinks on the generated source-summary page.
+
 ## 3. Ask The Agent To Ingest It
 
 Example prompt:
 
 ```text
 $wiki-ingest raw/reports/market-landscape-report.pdf
+```
+
+If the PDF is scanned or needs PDF-specific handling first, ask for the `pdf` skill explicitly:
+
+```text
+Use the pdf skill to OCR raw/reports/market-landscape-report.pdf if needed, preserve the original, and then ingest it into wiki/sources/.
 ```
 
 Expected result:
@@ -155,6 +163,8 @@ For Gemini CLI specifically, a useful verification step is:
 ```text
 /skills list
 ```
+
+The repo-local skill set also includes Obsidian companion skills such as `obsidian-markdown`, `obsidian-cli`, `obsidian-bases`, `json-canvas`, and `defuddle`.
 
 ## 9. Optional Slides
 

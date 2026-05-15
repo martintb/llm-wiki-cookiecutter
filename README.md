@@ -8,11 +8,14 @@ The generated wiki is designed to work across the major repository-aware harness
 - Claude Code via `CLAUDE.md` and `.claude/skills/`
 - Gemini via `GEMINI.md` and `.gemini/skills/`
 
+It also opens cleanly as an Obsidian vault.
+
 The template produces a repo with:
 
 - a durable wiki folder structure
 - page and source-summary templates
 - local wiki workflow skills
+- bundled Obsidian companion skills
 - optional Python helpers for page creation, validation, and skill syncing
 - optional slide directories for Marp-style deck generation
 
@@ -83,9 +86,13 @@ That document mirrors the README shipped inside each generated wiki repo.
 
 For a step-by-step example of day-to-day usage, read [Workflow Example](docs/workflow-example.md).
 
+For Obsidian setup and packaged companion skills, read [Obsidian Guide](docs/obsidian.md).
+
 ## Harness Compatibility
 
 The canonical skills in this template live in `skills/`.
+
+That includes the core wiki workflow skills, bundled Obsidian companion skills, and a repo-local `pdf` skill.
 
 They are mirrored into harness-native install locations:
 
@@ -104,6 +111,8 @@ Check for drift without rewriting files:
 ```bash
 python3 scripts/sync_skills.py --check
 ```
+
+The bundled Obsidian skills are vendored so generated repos work offline and do not depend on network access during `cookiecutter`.
 
 ## Developing The Template
 

@@ -94,12 +94,20 @@ If the source is messy or not yet categorized:
 Review inbox/ and tell me how you would classify the files before ingesting anything.
 ```
 
+If you use Obsidian, open the repo as a vault so you can inspect backlinks and follow-up edits after ingest.
+
 ## 3. Ingest The Source
 
 You can keep the ingest request simple because template selection, provenance preservation, and maintenance logging are part of the skill:
 
 ```text
 $wiki-ingest raw/reports/market-landscape-report.pdf
+```
+
+If the PDF is scanned or needs PDF-specific preparation first:
+
+```text
+Use the pdf skill to OCR raw/reports/market-landscape-report.pdf if needed, preserve the original, and then ingest it into wiki/sources/.
 ```
 
 Expected result:
@@ -215,6 +223,8 @@ For Gemini CLI specifically, a useful verification step is:
 ```text
 /skills list
 ```
+
+This repo also packages Obsidian companion skills such as `obsidian-markdown`, `obsidian-cli`, `obsidian-bases`, `json-canvas`, and `defuddle`.
 
 ## 10. Optional Slide Workflow
 
