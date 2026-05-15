@@ -2,6 +2,51 @@
 
 This example shows a practical workflow for using the wiki with an LLM agent. It focuses on the prompts and requests you would give the agent, with helper commands treated as optional support.
 
+## About The Prompt Syntax
+
+The examples below use **Codex-style skill invocation** by naming the skill directly with a `$` prefix, for example:
+
+```text
+$wiki-ingest raw/reports/market-landscape-report.pdf
+```
+
+If your harness does not use explicit skill syntax, translate the same request into plain language:
+
+- Codex style: `$wiki-ingest raw/reports/market-landscape-report.pdf`
+- Plain-language equivalent: `Ingest raw/reports/market-landscape-report.pdf.`
+
+The requested action is the same either way.
+
+### Equivalent styles in other harnesses
+
+- **Codex**: use the explicit skill form shown below, such as `$wiki-ingest raw/reports/market-landscape-report.pdf`.
+- **Claude Code**: if your Claude Code setup exposes local skills as slash-invokable, the equivalent form is `/wiki-ingest raw/reports/market-landscape-report.pdf`. Plain-language prompting also works well because the skills are designed to activate from intent.
+- **Gemini CLI**: the safest documented pattern is plain-language prompting plus `/skills list` to confirm the skill was discovered.
+
+Examples for the same task:
+
+- Codex: `$wiki-ingest raw/reports/market-landscape-report.pdf`
+- Claude Code: `/wiki-ingest raw/reports/market-landscape-report.pdf`
+- Gemini CLI: `Ingest raw/reports/market-landscape-report.pdf.`
+
+More equivalents:
+
+- Codex: `$wiki-integrate wiki/sources/market-landscape-report.md`
+- Claude Code: `/wiki-integrate wiki/sources/market-landscape-report.md`
+- Gemini CLI: `Integrate wiki/sources/market-landscape-report.md into the wiki.`
+
+- Codex: `$wiki-search What does the wiki say about the highest-priority customer segment?`
+- Claude Code: `/wiki-search What does the wiki say about the highest-priority customer segment?`
+- Gemini CLI: `What does the wiki say about the highest-priority customer segment?`
+
+- Codex: `$wiki-audit Audit this wiki and summarize the highest-priority fixes.`
+- Claude Code: `/wiki-audit Audit this wiki and summarize the highest-priority fixes.`
+- Gemini CLI: `Audit this wiki and summarize the highest-priority fixes.`
+
+- Codex: `$wiki-slides Create a short briefing deck about market priorities.`
+- Claude Code: `/wiki-slides Create a short briefing deck about market priorities.`
+- Gemini CLI: `Create a short briefing deck about market priorities.`
+
 ## 1. Verify The Scaffold
 
 Start by telling the agent:
@@ -31,13 +76,7 @@ If it is not yet categorized, place it in `inbox/` first.
 Example prompt:
 
 ```text
-Use wiki-ingest on raw/reports/market-landscape-report.pdf.
-
-Create a source summary in wiki/sources/.
-Preserve provenance.
-Extract the main claims, evidence, important entities, and suggested follow-up pages.
-Log the ingest in wiki/logs/maintenance.md.
-Do not broadly edit the rest of the wiki yet.
+$wiki-ingest raw/reports/market-landscape-report.pdf
 ```
 
 Expected result:
@@ -51,12 +90,7 @@ Expected result:
 Once the source summary exists:
 
 ```text
-Use wiki-integrate on wiki/sources/market-landscape-report.md.
-
-Update existing pages where possible.
-Create new pages only if they are durable and justified.
-Keep source trails explicit and separate Known from Inferred.
-Log all changes in wiki/logs/maintenance.md.
+$wiki-integrate wiki/sources/market-landscape-report.md
 ```
 
 Possible outputs:
@@ -71,9 +105,7 @@ Possible outputs:
 If you want the agent to create a specific new page:
 
 ```text
-Create a new concept page called "Market Segmentation" using the local concept template.
-Then integrate the relevant material from wiki/sources/market-landscape-report.md into it.
-Do not create any other new pages.
+$wiki-integrate Create a concept page for Market Segmentation and integrate the relevant material from wiki/sources/market-landscape-report.md into it.
 ```
 
 Optional helper command:
@@ -87,16 +119,7 @@ python -m wiki_tools new-page --type concept --title "Market Segmentation"
 Example prompt:
 
 ```text
-Use wiki-search to answer this question from the current wiki: What does the wiki say about the highest-priority customer segment?
-
-Search the wiki first.
-Use raw sources only if the wiki is missing, stale, or contradictory.
-Answer with:
-- the direct answer
-- relevant page links
-- the source trail
-- confidence level
-- the most important gap, if any
+$wiki-search What does the wiki say about the highest-priority customer segment?
 ```
 
 ## 7. Ask For An Audit
@@ -104,14 +127,7 @@ Answer with:
 Prompt:
 
 ```text
-Run wiki-audit on this repo and focus on:
-- weak source trails
-- orphan pages
-- duplicate pages
-- stale assumptions
-- source summaries that have not yet been integrated
-
-Record the findings in wiki/logs/audits.md and summarize the highest-priority fixes.
+$wiki-audit Audit this wiki and summarize the highest-priority fixes.
 ```
 
 Optional helper command:
@@ -125,7 +141,7 @@ python -m wiki_tools check --strict
 If you edit canonical local skills under `skills/`, tell the agent:
 
 ```text
-I updated the skill definitions under skills/. Refresh the installed mirrors for Codex, Claude Code, and Gemini.
+Sync the local skills into the installed Codex, Claude Code, and Gemini mirrors.
 ```
 
 Optional helper command:
@@ -134,17 +150,24 @@ Optional helper command:
 python -m wiki_tools sync-skills
 ```
 
+For Gemini CLI specifically, a useful verification step is:
+
+```text
+/skills list
+```
+
 ## 9. Optional Slides
 
 If slide support is enabled, ask for slides like this:
 
 ```text
-Use wiki-slides to create a short briefing deck about market priorities.
-
-Base it on the current synthesis and project pages, not raw sources.
-Create a brief first, then an outline, then a draft deck in slides/drafts/.
-Keep the slides sparse and put evidence trails in speaker notes.
+$wiki-slides Create a short briefing deck about market priorities.
 ```
+
+Equivalent examples:
+
+- Claude Code: `/wiki-slides Create a short briefing deck about market priorities.`
+- Gemini CLI: `Create a short briefing deck about market priorities.`
 
 ## 10. Healthy End State
 

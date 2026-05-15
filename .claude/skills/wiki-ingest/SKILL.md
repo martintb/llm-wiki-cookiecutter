@@ -29,6 +29,18 @@ Produce a source summary with:
 6. Record suggested integration targets instead of broad synthesis.
 7. Append a short entry to `wiki/logs/maintenance.md`.
 
+## Defaults
+
+Unless the user explicitly says otherwise:
+
+- choose the destination page path under `wiki/sources/`
+- choose the best matching template automatically
+- preserve provenance
+- include key claims, evidence anchors, entities, and open questions
+- avoid broad edits outside the source summary and maintenance log
+
+The user should not need to specify template selection, section structure, or logging behavior.
+
 ## Quality bar
 
 - Keep summaries dense and reusable.

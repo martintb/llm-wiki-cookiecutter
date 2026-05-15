@@ -27,6 +27,17 @@ Use this skill when the user wants the wiki reviewed for health, integrity, or m
 5. Identify source summaries that were never integrated.
 6. Record findings in `wiki/logs/audits.md`.
 
+## Defaults
+
+Unless the user explicitly says otherwise:
+
+- run a general audit
+- prioritize provenance, unsupported claims, broken links, duplication, and integration gaps
+- record findings in `wiki/logs/audits.md`
+- use severity levels and recommend concrete actions
+
+The user should only need to ask for an audit or specify a narrower focus.
+
 ## Severity
 
 Use:

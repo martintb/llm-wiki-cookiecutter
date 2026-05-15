@@ -17,6 +17,17 @@ Use this skill when the user asks what the wiki says, asks for prior work, or wa
 6. `wiki/sources/`
 7. `raw/` only if the wiki is missing, stale, or needs verification
 
+## Defaults
+
+Unless the user explicitly says otherwise:
+
+- search the wiki before using raw sources
+- use the search order above
+- answer with the direct answer, page links, source trail, and confidence
+- say clearly when coverage is weak or missing
+
+The user should not need to restate search order, output format, or fallback rules.
+
 ## Output
 
 Provide:
