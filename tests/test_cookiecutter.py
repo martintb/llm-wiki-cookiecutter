@@ -55,6 +55,10 @@ class CookiecutterRenderTests(unittest.TestCase):
 
     def test_default_render_and_tools(self) -> None:
         project_dir = self.render_project()
+        agents_text = (project_dir / "AGENTS.md").read_text(encoding="utf-8")
+        pdf_skill_text = (project_dir / "skills" / "pdf" / "SKILL.md").read_text(
+            encoding="utf-8"
+        )
         self.assertTrue((project_dir / "AGENTS.md").exists())
         self.assertTrue((project_dir / "CLAUDE.md").exists())
         self.assertTrue((project_dir / "GEMINI.md").exists())
@@ -64,6 +68,10 @@ class CookiecutterRenderTests(unittest.TestCase):
         self.assertTrue((project_dir / ".agents" / "skills").exists())
         self.assertTrue((project_dir / ".claude" / "skills").exists())
         self.assertTrue((project_dir / ".gemini" / "skills").exists())
+        self.assertIn("kepano/obsidian-skills", agents_text)
+        self.assertIn("default path for Obsidian-specific", agents_text)
+        self.assertIn("When the output includes equations:", pdf_skill_text)
+        self.assertIn("If you cannot guarantee equation fidelity", pdf_skill_text)
         self.assertTrue((project_dir / "skills" / "obsidian-markdown" / "SKILL.md").exists())
         self.assertTrue((project_dir / "skills" / "obsidian-cli" / "SKILL.md").exists())
         self.assertTrue((project_dir / "skills" / "obsidian-bases" / "SKILL.md").exists())

@@ -53,6 +53,14 @@ The generated wikis use these workflows:
 
 Do not collapse these workflows into one step unless the user explicitly asks.
 
+Generated `AGENTS.md` files should also direct agents to use the vendored Obsidian companion skills from `kepano/obsidian-skills` by default whenever the task is Obsidian-aware:
+
+- `obsidian-markdown`
+- `obsidian-cli`
+- `obsidian-bases`
+- `json-canvas`
+- `defuddle`
+
 ## Generated wiki page contract
 
 Wiki pages should use this frontmatter:

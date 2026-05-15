@@ -30,6 +30,8 @@ The goal is not to answer from scratch every time. The goal is to compile knowle
 
 Use the wiki skills as follows:
 
+- For Obsidian-aware work, default to the bundled skills vendored from `kepano/obsidian-skills` before using generic editing or browsing workflows.
+
 - `wiki-ingest` — convert raw source material into source-summary pages
 - `wiki-integrate` — incorporate source summaries into concepts, synthesis, projects, decisions, questions, and other durable wiki pages
 - `wiki-search` — answer questions from the wiki before falling back to raw sources
@@ -49,6 +51,7 @@ Important distinction:
 - `wiki-search` reads the wiki to answer questions
 - `wiki-audit` evaluates the wiki and records findings in `wiki/logs/audits.md`
 - `pdf` prepares or produces PDFs but should not replace `wiki-ingest` or `wiki-integrate`
+- `obsidian-markdown`, `obsidian-cli`, `obsidian-bases`, `json-canvas`, and `defuddle` are the default path for Obsidian-specific or Obsidian-adjacent tasks
 
 Do not collapse these workflows into one giant operation unless the user explicitly asks.
 

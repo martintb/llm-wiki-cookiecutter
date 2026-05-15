@@ -37,6 +37,7 @@ Prefer small, dependable tools with clear responsibilities:
 - `reportlab` for generating PDFs from structured content
 - `pdftotext` when a command-line extractor is available and simpler than writing code
 - `qpdf` for structural repairs, decryption, and page operations
+- a TeX-native renderer such as Pandoc plus a LaTeX engine or Typst when the output contains equations
 - OCR tooling only when extraction quality is clearly inadequate
 
 Choose the lightest tool that can do the job well. Do not introduce a heavier stack unless the task justifies it.
@@ -52,6 +53,8 @@ If the repo uses Python package metadata, the `pdf` extra should cover the defau
 - `reportlab` for PDF generation
 
 `pytesseract` still requires the `tesseract` binary to be installed on the system, and `pdf2image` typically needs Poppler tools such as `pdftoppm`.
+
+For math-heavy output generation, prefer an external renderer such as Pandoc with `tectonic`, `xelatex`, or another LaTeX-compatible engine, or Typst. Keep `reportlab` as the default only for equation-light documents unless equations are inserted as pre-rendered vector or raster assets.
 
 ## Workflow
 
@@ -121,6 +124,15 @@ For large books, use `pdf2image` and `pytesseract` selectively:
 - OCR suspected chapter opener pages when bookmarks are absent.
 - Do not OCR every page just to split the document unless there is no better boundary signal.
 
+### Equation-heavy PDFs
+
+If equations matter, prioritize notation fidelity over convenience.
+
+- Do not assume plain text extraction preserves mathematical meaning.
+- Prefer preserving the original PDF or page images when the goal is to retain exact notation.
+- If you must extract equations into editable text, normalize them into standard LaTeX math delimiters and verify the result against the source.
+- Flag ambiguous glyphs explicitly, especially minus versus en dash, `x` versus `\times`, superscripts, subscripts, primes, and Greek letters.
+
 ## Output Generation
 
 When generating a new PDF:
@@ -129,6 +141,23 @@ When generating a new PDF:
 - treat the PDF as a publication artifact, not the canonical editable format
 - prefer deterministic layout over decorative complexity
 - avoid Unicode superscript and subscript glyph tricks if the rendering stack is known to be fragile
+
+When the output includes equations:
+
+- Prefer a math-native pipeline such as Markdown or LaTeX rendered through Pandoc plus a LaTeX engine, or Typst.
+- Use `reportlab` directly only when the document has no meaningful equations, or when each equation is inserted as a verified rendered asset.
+- Keep equation source in standard LaTeX form rather than visually similar Unicode substitutions.
+- Preserve display math, inline math, matrices, fractions, radicals, aligned equations, and numbered equations as semantic math, not hand-positioned text.
+
+Minimum validation for equation-bearing PDFs:
+
+- visually inspect every page containing equations
+- confirm inline and display math are distinct and legible
+- check fractions, superscripts, subscripts, radicals, matrices, and alignment
+- verify line wrapping does not break equations incorrectly
+- compare a sample of rendered equations against the editable source and the intended notation
+
+If you cannot guarantee equation fidelity with the available toolchain, say so and recommend a TeX-native rendering path instead of shipping a silently degraded PDF.
 
 ## Wiki-Specific Rules
 
